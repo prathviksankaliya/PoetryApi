@@ -1,14 +1,19 @@
 package com.itcraftsolution.poertyapi;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private Button postDataBtn , btnUpdate , btnDelete ,btnSelect;
     private TextView responseTV;
     private ProgressBar loadingPB;
+    private ImageView Profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
         btnDelete = findViewById(R.id.idBtndelete);
         responseTV = findViewById(R.id.idTVResponse);
         loadingPB = findViewById(R.id.idLoadingPB);
+        Profile = findViewById(R.id.igProfileDp);
+
+
+        Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGetContent.launch("image/*");
+            }
+        });
 
         postDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,5 +330,15 @@ public class MainActivity extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }
+
+
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri uri) {
+                    // Handle the returned Uri
+                    Profile.setImageURI(uri);
+                }
+            });
 
 }

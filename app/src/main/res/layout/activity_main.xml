@@ -86,4 +86,12 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/igProfileDp"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/edit_profile_icon" />
+
+
 </LinearLayout>
